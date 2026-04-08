@@ -1,5 +1,10 @@
 # LA28 Ticket Purchase Plan
 
+**Source data:** [LA28 Schedule Google Sheet](https://docs.google.com/spreadsheets/d/1N8y_tcoS54UFA20kW2Sg3E1lGjupyoHC8c0KZ3WCfvs/edit?gid=906768637#gid=906768637)
+*Snapshot date: April 8, 2026. Check the live sheet for updates before purchasing.*
+
+---
+
 ## Quick Reference — All Codes
 
 | Code | Event | Date | Time | Venue |

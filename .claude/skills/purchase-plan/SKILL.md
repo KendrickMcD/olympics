@@ -13,6 +13,16 @@ contingencies gracefully.
 
 ## Step 1: Read the Schedule Data
 
+**Source of truth (live Google Sheet):**
+https://docs.google.com/spreadsheets/d/1N8y_tcoS54UFA20kW2Sg3E1lGjupyoHC8c0KZ3WCfvs/edit?gid=906768637#gid=906768637
+
+The repo contains `LA28 SCHEDULE.xlsx`, a local snapshot of this sheet.
+Before building a plan, tell the user:
+
+> The schedule data is from a local snapshot. The live version may have updates.
+> Check the Google Sheet link above and re-download the xlsx if the sheet has
+> been modified since the snapshot was taken.
+
 Read the spreadsheet `LA28 SCHEDULE.xlsx` in the repo root using Python with
 openpyxl. Extract data from these sheets:
 
