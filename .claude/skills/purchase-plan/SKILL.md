@@ -16,15 +16,37 @@ contingencies gracefully.
 **Source of truth (live Google Sheet):**
 https://docs.google.com/spreadsheets/d/1N8y_tcoS54UFA20kW2Sg3E1lGjupyoHC8c0KZ3WCfvs/edit?gid=906768637#gid=906768637
 
-The repo contains `LA28 SCHEDULE.xlsx`, a local snapshot of this sheet.
-Before building a plan, tell the user:
+**The sheet is publicly viewable (anyone with the link).** Try to fetch it
+live before falling back to the local snapshot.
 
-> The schedule data is from a local snapshot. The live version may have updates.
-> Check the Google Sheet link above and re-download the xlsx if the sheet has
-> been modified since the snapshot was taken.
+### 1a. Attempt live fetch
 
-Read the spreadsheet `LA28 SCHEDULE.xlsx` in the repo root using Python with
-openpyxl. Extract data from these sheets:
+Run this Python code to download the latest version directly from Google Sheets:
+
+```python
+import urllib.request, os
+
+SHEET_ID = "1N8y_tcoS54UFA20kW2Sg3E1lGjupyoHC8c0KZ3WCfvs"
+EXPORT_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=xlsx"
+LOCAL_PATH = "LA28 SCHEDULE.xlsx"
+
+try:
+    req = urllib.request.Request(EXPORT_URL, headers={"User-Agent": "Mozilla/5.0"})
+    resp = urllib.request.urlopen(req, timeout=15)
+    with open(LOCAL_PATH, "wb") as f:
+        f.write(resp.read())
+    print("Fetched live spreadsheet from Google Sheets.")
+except Exception as e:
+    print(f"Could not fetch live data ({e}). Using local snapshot.")
+```
+
+If the fetch succeeds, you're working with the latest data.
+If it fails (sandbox restrictions, network issues), the local `LA28 SCHEDULE.xlsx`
+in the repo root is used as a fallback — tell the user which source was used.
+
+### 1b. Parse the spreadsheet
+
+Read `LA28 SCHEDULE.xlsx` using Python with openpyxl. Extract data from these sheets:
 
 - **Schedule By Time Slot** — one row per bookable session (this is the primary
   sheet for building the plan; each row = one ticket/session code)
